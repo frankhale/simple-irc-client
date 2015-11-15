@@ -1,0 +1,29 @@
+html,body {
+  padding: 0px;
+  margin: 0px;
+  /*background-color: #000;*/
+}
+* {
+  font-family: 'VT323', sans-serif;
+  font-size: 22pt;
+}
+*:hover {
+  outline: none;
+}
+#messages {
+  /*background-color: #000;
+  color: #fff;*/
+  padding: 5px;
+  overflow: auto;
+  /*border-bottom: 2px solid #fff;*/
+  border-bottom: 2px solid #000;
+}
+
+/*#commandText {
+  background-color: #000;
+  color: #fff;
+}
+#commandContainer {
+  background-color: #000;
+  color: #fff;
+}*/
