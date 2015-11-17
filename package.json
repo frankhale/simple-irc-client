@@ -2,7 +2,7 @@
   "name": "irc-client",
   "version": "0.0.1",
   "description": "Simple IRC client",
-  "repository": "",
+  "repository": "https://github.com/frankhale/simple-irc-client.git",
   "author": "Frank Hale <frankhale@gmail.com>",
   "license": "GPL-3.0",
   "main": "main.js",

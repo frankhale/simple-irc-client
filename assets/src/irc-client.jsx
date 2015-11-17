@@ -124,7 +124,7 @@ var IrcClient = (() => {
 
           let nicks = this.state.nicks.map((n) => {
             return `<span style='color: ${this.state.nickColors[n]};'>${n}</span>`;
-          }.bind(this));
+          });
 
           $("#messages").append(`Users: ${nicks.join(", ")}<br/>`);
           this.scrollContentArea();
@@ -140,9 +140,11 @@ var IrcClient = (() => {
           }
         } else if (textSplit[0] === "/clear") {
           this.state.messages.html();
+        } else if (textSplit[0] === "/me") {
+          client.say(channel, text);
         }
       } else {
-        client.say(sandboxChannel, text);
+        client.say(channel, text);
       }
     }
     sanitizeHTMLTag(text) {
@@ -171,28 +173,28 @@ var IrcClient = (() => {
         }, () => {
           let coloredNicks = _.keys(nicks).map((n) => {
             return `<span style='color: ${this.state.nickColors[n]};'>${n}</span>`;
-          }.bind(this));
+          });
 
           this.printResponse(`<span>Users: ${coloredNicks.join(", ")}</span><br/>`);
           this.scrollContentArea();
         });
-      }.bind(this));
+      });
 
       client.addListener('registered', (message) => {
-        browser.setTitle(`${sandboxChannel}@${server}`);
+        browser.setTitle(`${channel}@${server}`);
         this.printResponse(`<span>${this.sanitizeHTMLTag(message.args[1])}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('motd', (message) => {
         this.printResponse(`<span style='color: #345;'><pre>${this.sanitizeHTMLTag(message)}</pre></span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('topic', (channel, topic, nick, message) => {
         this.printResponse(`<span style='background-color: #777;'>${this.sanitizeHTMLTag(channel)}: ${this.sanitizeHTMLTag(topic)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('message', (from, to, message) => {
         from = this.sanitizeHTMLTag(from);
@@ -204,32 +206,32 @@ var IrcClient = (() => {
 
         this.printResponse(`<span><span style='color: ${fromNickColor};'>${from}</span>@${this.sanitizeHTMLTag(to)}: ${this.sanitizeHTMLTag(message)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('selfMessage', (to, message) => {
         this.printResponse(`<span style='color:#777;'>${nick}@${this.sanitizeHTMLTag(to)}: ${this.sanitizeHTMLTag(message)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('notice', (from, to, text, message) => {
         this.printResponse(`<span>${this.sanitizeHTMLTag(text)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('action', (from, to, text, message) => {
-        this.printResponse(`<span>${this.sanitizeHTMLTag(from)} - ${this.sanitizeHTMLTag(text)}</span><br/>`);
+        this.printResponse(`<span><i>${this.sanitizeHTMLTag(from)} - ${this.sanitizeHTMLTag(text)}</i></span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('error', (message) => {
         this.printResponse(`<span style='color:red;'>ERROR: ${this.sanitizeHTMLTag(message)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('pm', (from, message) => {
         this.printResponse(`<span style='color:#678;'>PRIVATE: ${this.sanitizeHTMLTag(from)} - ${this.sanitizeHTMLTag(message)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('join', (channel, nick, message) => {
 
@@ -244,27 +246,31 @@ var IrcClient = (() => {
 
         this.printResponse(`<span><span style='color: ${this.state.nickColors[nick]};'>${nick}</span> has joined ${this.sanitizeHTMLTag(channel)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('quit', (nick, reason, channels, message) => {
         this.printResponse(`<span><span style='color: ${this.state.nickColors[nick]};'>${nick}</span>: ${this.sanitizeHTMLTag(reason)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('part', (nick, reason, channels, message) => {
         this.printResponse(`<span><span style='color: ${this.state.nickColors[nick]};'>${nick}</span>: ${this.sanitizeHTMLTag(reason)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('kick', (nick, reason, channels, message) => {
         this.printResponse(`<span><span style='color: ${this.state.nickColors[nick]};'>${nick}</span>: ${this.sanitizeHTMLTag(reason)}</span><br/>`);
         this.scrollContentArea();
-      }.bind(this));
+      });
 
       client.addListener('nick', (oldnick, newnick, channels, message) => {
         newnick = this.sanitizeHTMLTag(newnick);
         this.state.nickColors[newnick] = randomColor();
-      }.bind(this));
+      });
+
+      client.addListener('raw', (message) => {
+        //console.log(message);
+      });
     }
     componentDidMount() {
       var $messages = $("#messages");
@@ -283,7 +289,7 @@ var IrcClient = (() => {
         messages: $messages
       }, () => {
         this.handleIRCMessages();
-      }.bind(this));
+      });
     }
     render() {
       return (

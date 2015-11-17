@@ -27,4 +27,4 @@ GNU GPL v3 - see [LICENSE](LICENSE)
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-15 November 2015
+17 November 2015
