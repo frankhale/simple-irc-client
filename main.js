@@ -1,5 +1,5 @@
 var app = require('app'),
-    path = require('path'),    
+    path = require('path'),
     BrowserWindow = require('browser-window'),
     mainWindow = null;
 
