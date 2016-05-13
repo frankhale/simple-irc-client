@@ -108,4 +108,4 @@ GNU GPL v3 - see [LICENSE](LICENSE)
 ## Author(s)
 
 Frank Hale &lt;frankhale@gmail.com&gt;  
-19 November 2015
+12 May 2016

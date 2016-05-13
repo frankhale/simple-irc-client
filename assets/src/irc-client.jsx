@@ -1,7 +1,7 @@
 const IrcClient = (() => {
   const irc = require('irc');
-  const shell = require('shell');
-  const browser = require('remote').getCurrentWindow();
+  const shell = require('electron');
+  const browser = require('electron').remote;
   const randomColor = require('randomcolor');
 
   class IRCClient extends React.Component {
@@ -370,7 +370,7 @@ const IrcClient = (() => {
         <p>
         By: Frank Hale &lt;frankhale@gmail.com&gt;
         <br/>
-        Date: 19 November 2015
+        Date: 12 May 2016
         <p>`;
 
       this.printResponse(welcomeMessage);
