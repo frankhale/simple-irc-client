@@ -1,7 +1,7 @@
 const IrcClient = (() => {
   const irc = require('irc');
   const shell = require('electron');
-  const browser = require('electron').remote;
+  const browser = require('electron').remote.getCurrentWindow();
   const randomColor = require('randomcolor');
 
   class IRCClient extends React.Component {
@@ -343,7 +343,7 @@ const IrcClient = (() => {
       }
     }
     getChannelInfo(channel) {
-      const chan = _.where(this.state.channels, { "to" : channel, "type": "message" });
+      const chan = _.find(this.state.channels, { "to" : channel, "type": "message" });
       if(chan !== undefined) {
         return chan;
       } else {
