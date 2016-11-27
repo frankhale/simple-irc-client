@@ -12,8 +12,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          "assets/build/irc-client.js": "assets/src/irc-client.jsx",
-          "assets/build/command-box.js": "assets/src/command-box.jsx"
+          "assets/build/irc-client.js": "assets/src/irc-client.js",
+          "assets/build/command-box.js": "assets/src/command-box.js"
         }
       }
     },
